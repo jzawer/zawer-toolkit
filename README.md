@@ -1,4 +1,4 @@
-# dev-toolkit
+# zawer-toolkit
 
 Marketplace personal de plugins para agentes de código (Claude Code y GitHub Copilot),
 orientado a trabajo de arquitectura.
@@ -9,17 +9,15 @@ orientado a trabajo de arquitectura.
 
 ## 1. Instalar
 
-Sustituye `<tu-usuario>` por tu usuario de GitHub.
-
 <details>
 <summary><strong>Claude Code</strong> (terminal, escritorio, VS Code, JetBrains)</summary>
 
 ```bash
-claude plugin install frontend-architect --marketplace <tu-usuario>/dev-toolkit
+claude plugin install frontend-architect --marketplace jzawer/zawer-toolkit
 ```
 
-Para recibir actualizaciones automáticas: `/plugin` → **Marketplaces** → `dev-toolkit` →
-**Enable auto-update**. O a mano: `claude plugin update frontend-architect@dev-toolkit`.
+Para recibir actualizaciones automáticas: `/plugin` → **Marketplaces** → `zawer-toolkit` →
+**Enable auto-update**. O a mano: `claude plugin update frontend-architect@zawer-toolkit`.
 
 </details>
 
@@ -27,11 +25,11 @@ Para recibir actualizaciones automáticas: `/plugin` → **Marketplaces** → `d
 <summary><strong>GitHub Copilot</strong> (CLI y VS Code)</summary>
 
 ```bash
-copilot plugin marketplace add <tu-usuario>/dev-toolkit
-copilot plugin install frontend-architect@dev-toolkit
+copilot plugin marketplace add jzawer/zawer-toolkit
+copilot plugin install frontend-architect@zawer-toolkit
 ```
 
-En VS Code: **Chat: Install Plugin From Source** → `https://github.com/<tu-usuario>/dev-toolkit`.
+En VS Code: **Chat: Install Plugin From Source** → `https://github.com/jzawer/zawer-toolkit`.
 El soporte de plugins en VS Code está en Preview (`chat.plugins.enabled`).
 
 Los agentes con nombre (`component-scout`, `design-reviewer`, `a11y-auditor`) son de
@@ -73,7 +71,7 @@ Todas las demás skills leen esa configuración.
 Probar sin instalar, desde un proyecto de ejemplo:
 
 ```bash
-claude --plugin-dir /ruta/a/dev-toolkit/plugins/frontend-architect
+claude --plugin-dir /ruta/a/zawer-toolkit/plugins/frontend-architect
 ```
 
 Validar antes de subir:

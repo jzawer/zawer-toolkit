@@ -4,8 +4,16 @@
   "version": "0.2.0",
   "description": "Design-to-code workflow for frontend: setup wizard, design context, tokens, component specs, build and multi-agent design review",
   "author": {
-    "name": "dev-toolkit maintainers"
+    "name": "jzawer",
+    "url": "https://github.com/jzawer"
   },
   "license": "MIT",
-  "keywords": ["frontend", "design-system", "design-tokens", "accessibility", "architecture"]
+  "keywords": [
+    "frontend",
+    "design-system",
+    "design-tokens",
+    "accessibility",
+    "architecture"
+  ],
+  "repository": "https://github.com/jzawer/zawer-toolkit"
 }

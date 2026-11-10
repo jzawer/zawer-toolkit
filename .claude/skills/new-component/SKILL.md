@@ -1,11 +1,11 @@
 ---
 name: new-component
-description: Scaffold a new skill, agent or plugin in this dev-toolkit repo following its conventions, then validate it. Use when the user wants to add a skill, an agent or a new plugin to the toolkit.
+description: Scaffold a new skill, agent or plugin in this zawer-toolkit repo following its conventions, then validate it. Use when the user wants to add a skill, an agent or a new plugin to the toolkit.
 ---
 
 # Add a component to the toolkit
 
-This is a project skill: it only exists while working inside the dev-toolkit repo.
+This is a project skill: it only exists while working inside the zawer-toolkit repo.
 
 ## 1. Clarify (one question at a time)
 

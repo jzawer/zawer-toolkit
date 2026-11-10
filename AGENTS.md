@@ -1,4 +1,4 @@
-# dev-toolkit: conventions for agents
+# zawer-toolkit: conventions for agents
 
 This repo is a plugin marketplace (`.claude-plugin/marketplace.json`) read by
 Claude Code and GitHub Copilot (CLI and VS Code). Plugins live in `plugins/<name>/`.
