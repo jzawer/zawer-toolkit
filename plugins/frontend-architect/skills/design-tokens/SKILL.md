@@ -5,6 +5,12 @@ description: Define, extract or audit design tokens (color, typography, spacing,
 
 # Design tokens
 
+## Before you start
+
+Read `docs/agents/frontend.md` for the styling approach, tokens output path, tokens
+build command and themes. If it is missing, tell the user to run
+`/setup-frontend-architect` first; continue only if they prefer, stating assumptions.
+
 ## 1. Audit the current state
 
 Search the codebase for hardcoded values: hex/rgb/hsl colors, px/rem spacing,
@@ -18,17 +24,17 @@ near-duplicates (e.g. `#1a73e8` vs `#1a74e8`, `15px` vs `16px`) and count usages
   (`color.text.muted`, `color.surface.raised`, `color.border.focus`, `space.inset.md`).
 
 Rules:
-- Every semantic color token has a light and a dark value.
-- Check every text/background semantic pair for WCAG AA contrast
-  (4.5:1 normal text, 3:1 large text and UI components). Report failures.
+- Every semantic color token has a value for each theme in the config.
+- Check every text/background semantic pair for WCAG contrast at the configured
+  level (AA: 4.5:1 normal text, 3:1 large text and UI components). Report failures.
 - Prefer a small scale (e.g. 8–10 spacing steps) over matching every legacy value.
   List the legacy values you collapsed so the user can confirm.
 
 ## 3. Write and generate
 
 1. Write `design/tokens.json` in DTCG format (`$value`, `$type`, aliases with `{...}`).
-2. Generate platform output with the repo's existing tooling. If there is none,
-   propose Style Dictionary and ask before adding dependencies.
+2. Generate the configured output with the configured build. If there is none,
+   propose one that fits the styling approach and ask before adding dependencies.
 3. Do not mass-replace hardcoded values in components without asking: propose
    the replacement plan first (by folder or component) and apply it in batches.
 

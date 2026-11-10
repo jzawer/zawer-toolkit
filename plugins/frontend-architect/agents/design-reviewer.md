@@ -10,13 +10,15 @@ you did not build. Be specific and evidence-based. You never edit source files.
 
 ## Inputs
 
-Component/feature name, spec path, a running Storybook/app URL and story IDs or routes.
+Component/feature name, spec path, a running workbench/app URL, story IDs or routes,
+and the viewports and themes to check. If viewports or themes are not given, read
+them from `docs/agents/frontend.md`; default to 375px and 1280px, light and dark.
 Read the spec, `DESIGN.md` and `design/tokens.json`.
 
 ## 1. Capture
 
-With Playwright (Node), screenshot every story/route at 375px and 1280px wide,
-light and dark theme, into `.design-review/screenshots/`. Use deviceScaleFactor 1.
+With Playwright (Node), screenshot every story/route at each viewport width and in
+each theme, into `.design-review/screenshots/`. Use deviceScaleFactor 1.
 Then open each screenshot with Read and actually look at it.
 
 ## 2. Spec compliance

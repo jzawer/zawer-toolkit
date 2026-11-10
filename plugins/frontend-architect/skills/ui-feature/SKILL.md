@@ -10,35 +10,41 @@ moments (breakdown and specs), not at the end.
 
 ## 1. Context
 
-- `DESIGN.md` missing → run `design-context`.
-- `design/tokens.json` missing → ask whether to run `design-tokens` now or
-  continue with the existing styles (record the decision).
+- `docs/agents/frontend.md` missing → tell the user to run `/setup-frontend-architect`
+  and stop. Setup is user-invoked; you can't run it for them.
+- `DESIGN.md` missing → call the Skill tool with "design-context".
+- `design/tokens.json` missing → ask whether to call the Skill tool with
+  "design-tokens" now or continue with the existing styles (record the decision).
 
 ## 2. Break down
 
-List the components the feature needs. Launch `frontend-architect:component-scout`
-to classify each one as **reuse**, **extend** or **new**.
+List the components the feature needs. Dispatch the component scout as a subagent
+with a fresh context window (in Claude Code the `frontend-architect:component-scout`
+agent; elsewhere a general-purpose subagent told to follow
+[../../agents/component-scout.md](../../agents/component-scout.md)) to classify each
+one as **reuse**, **extend** or **new**.
 Show the table to the user and **wait for confirmation**.
 
 ## 3. Spec
 
-Run `component-spec` for each **extend** or **new** component.
+For each **extend** or **new** component, call the Skill tool with "component-spec".
 Present all specs together and **wait for approval**.
 
 ## 4. Build
 
-Run `ui-build` for each component, leaf components first. Then compose the
-screen from them.
+For each component, leaf components first, call the Skill tool with "ui-build".
+Then compose the screen from them.
 
 ## 5. Review loop
 
-Run `design-review` on the feature.
-- `CHANGES REQUESTED` → `ui-build` with the review file → `design-review` again.
+Call the Skill tool with "design-review" for the feature.
+- `CHANGES REQUESTED` → call the Skill tool with "ui-build" (it reads the review
+  file) → call the Skill tool with "design-review" again.
 - Maximum **3 iterations**. If still not approved, stop and show the user the
   remaining findings; a human decides.
 
 ## 6. Close
 
 Summarize: components reused / extended / created, decisions taken (suggest an
-ADR if any decision affects other teams), open findings, and anything that
-needs a human designer's call.
+ADR in the configured ADR path if a decision affects other teams), open findings,
+and anything that needs a human designer's call.

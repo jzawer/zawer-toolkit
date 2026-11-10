@@ -21,17 +21,28 @@ This is a project skill: it only exists while working inside the dev-toolkit rep
 
 ## 2. Scaffold
 
+Read `AGENTS.md` first and follow its portability conventions (relative links,
+Skill tool chaining, subagent fallback, per-repo config).
+
 - **Skill**: `plugins/<plugin>/skills/<kebab-name>/SKILL.md` with frontmatter
-  `name` and `description`. The description says what it does AND when to use it,
-  with concrete trigger phrases. Optional supporting files (templates) live next to it
-  and are referenced as `${CLAUDE_PLUGIN_ROOT}/skills/<name>/<file>`.
+  `name` and `description`.
+  - Model-invoked (default): the description says what it does AND when to use it,
+    with concrete trigger phrases.
+  - User-invoked (setup, destructive or one-off flows): add
+    `disable-model-invocation: true` and write a short human-facing description.
+  - Start with a "Before you start" step that reads the plugin's per-repo config
+    (`docs/agents/<area>.md`) and points to the setup skill when it is missing.
+  - Supporting files (templates) live next to it, linked as `[file.md](./file.md)`.
+  - If the skill needs new per-repo settings, add them to the setup skill's wizard
+    and config template instead of hardcoding them.
 - **Agent**: `plugins/<plugin>/agents/<kebab-name>.md` with frontmatter `name`,
   `description`, `tools` (minimum needed; reviewers/auditors are read-only) and
   `model` (`haiku` for search/scouting, `inherit` otherwise). Body: role,
   inputs, steps, and an exact output format the caller can merge.
-  Other components call it as `<plugin>:<agent-name>`.
+  Skills dispatch it as `<plugin>:<agent-name>` with the general-purpose fallback.
 - **Plugin**: `plugins/<name>/.claude-plugin/plugin.json` (name, version 0.1.0,
-  description, author) and add an entry to `.claude-plugin/marketplace.json`.
+  description, author), a `setup-<name>` skill if it needs per-repo config, and an
+  entry in `.claude-plugin/marketplace.json`.
 
 ## 3. Wire it
 

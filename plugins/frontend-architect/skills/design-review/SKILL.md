@@ -1,6 +1,6 @@
 ---
 name: design-review
-description: Review implemented UI against its spec, design tokens and DESIGN.md by running two independent reviewer agents in parallel (visual/design and accessibility) and merging their findings into design/reviews/. Use after ui-build, before merging UI changes, or when the user asks whether a component or screen looks right.
+description: Review implemented UI against its spec, design tokens and DESIGN.md by running two independent reviewers in parallel (visual/design and accessibility) and merging their findings into design/reviews/. Use after ui-build, before merging UI changes, or when the user asks whether a component or screen looks right.
 ---
 
 # Design review
@@ -10,19 +10,27 @@ fresh context and merges what they find.
 
 ## 1. Prepare
 
+- Read `docs/agents/frontend.md` for the workbench command and URL, viewports,
+  themes and accessibility level. If missing, tell the user to run
+  `/setup-frontend-architect` and stop.
 - Identify the component(s) or screen under review and their specs in
   `design/components/`.
-- Make sure there is something to look at: start Storybook (or the app dev
-  server) in the background and note the URL. If it can't start, report why
-  and stop.
+- Start the workbench (or app) in the background with the configured command and
+  check the URL responds. If it can't start, report why and stop.
 
 ## 2. Run both reviewers in parallel
 
-Launch these agents **in the same message** so they run concurrently. Give each
-the component name, spec path, the URL and the list of story IDs/routes:
+Dispatch two subagents **at the same time**, each with a fresh context window.
+Give each: component name, spec path, workbench URL, story IDs or routes, and the
+viewports, themes and accessibility level from the config.
 
-- `frontend-architect:design-reviewer`: spec compliance, tokens, visual quality.
-- `frontend-architect:a11y-auditor`: accessibility (axe, keyboard, semantics).
+| Reviewer | Claude Code agent | Elsewhere: general-purpose subagent told to follow |
+|---|---|---|
+| Visual / design | `frontend-architect:design-reviewer` | [../../agents/design-reviewer.md](../../agents/design-reviewer.md) |
+| Accessibility | `frontend-architect:a11y-auditor` | [../../agents/a11y-auditor.md](../../agents/a11y-auditor.md) |
+
+When using the fallback, tell the subagent to ignore the file's frontmatter and
+not to edit any source file.
 
 ## 3. Merge
 
@@ -32,7 +40,7 @@ Write `design/reviews/<component-or-feature>.md`:
 # Review: <name> (iteration N)
 
 ## Blocker
-- [visual|a11y] Finding — evidence (screenshot / file:line) — suggested fix
+- [visual|a11y] Finding: evidence (screenshot / file:line), suggested fix
 
 ## Should fix
 ## Nice to have
@@ -43,7 +51,7 @@ Write `design/reviews/<component-or-feature>.md`:
 Verdict: APPROVED | CHANGES REQUESTED
 ```
 
-- Deduplicate findings both agents reported.
+- Deduplicate findings both reviewers reported.
 - Any Blocker, or any unmet acceptance criterion → `CHANGES REQUESTED`.
 - If the file already exists, increment the iteration and keep the previous
   iteration below a `---` separator.
