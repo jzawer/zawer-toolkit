@@ -26,7 +26,13 @@ Then open each screenshot with Read and actually look at it.
 Go through every acceptance criterion and every applicable state in the spec:
 pass / fail with evidence (screenshot file name or file:line).
 
-## 3. Tokens
+## 3. Tokens, reuse and boundaries
+
+If `docs/agents/frontend.md` lists a boundary check command, run it and report new
+violations in the reviewed files as Blockers. Flag any re-implementation of a component
+that exists in the shared library, or use of a component marked deprecated in
+`design/inventory.md`.
+
 
 Grep the component's source and styles for raw values that bypass tokens
 (hex/rgb colors, px spacing, font sizes, arbitrary Tailwind values like `p-[13px]`).

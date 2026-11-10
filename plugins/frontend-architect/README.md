@@ -1,8 +1,11 @@
 # frontend-architect
 
-Flujo de diseño → código para front-end: setup del proyecto, contexto de diseño,
-tokens, specs de componentes, construcción y revisión con varios agentes en paralelo.
-Funciona en Claude Code y GitHub Copilot.
+La capa de **diseño, calidad visual y arquitectura front-end** para agentes de código
+(Claude Code y GitHub Copilot): setup del proyecto, decisiones de arquitectura como ADRs,
+librería de componentes, contratos de diseño, construcción y verificación de lo que ve el usuario.
+
+Es independiente de plugins de proceso de ingeniería (specs, tickets, TDD, debugging):
+no los necesita ni los sustituye, y puede convivir con ellos.
 
 ## Empieza aquí
 
@@ -10,26 +13,55 @@ Funciona en Claude Code y GitHub Copilot.
 /setup-frontend-architect
 ```
 
-## Componentes
+## Skills
 
-### Skills
+### Las lanzas tú
 
-| Skill | Invoca | Qué hace | Escribe |
-|---|---|---|---|
-| `setup-frontend-architect` | solo tú | Wizard: stack, estilos, componentes, workbench, comandos, calidad | `docs/agents/frontend.md`, bloque en `CLAUDE.md`/`AGENTS.md`, ADR de stack |
-| `ui-feature` | tú o el modelo | Orquestadora: una funcionalidad de UI de principio a fin | — |
-| `design-context` | tú o el modelo | Intención de diseño | `DESIGN.md` |
-| `design-tokens` | tú o el modelo | Audita y define tokens (DTCG) | `design/tokens.json` |
-| `component-spec` | tú o el modelo | Especifica un componente antes de construirlo | `design/components/<name>.md`, `design/inventory.md` |
-| `ui-build` | tú o el modelo | Implementa según la spec, con stories | código + stories |
-| `design-review` | tú o el modelo | Lanza los dos revisores en paralelo y fusiona | `design/reviews/<name>.md` |
+| Skill | Qué hace | Escribe |
+|---|---|---|
+| `setup-frontend-architect` | Wizard: diagnóstico de la UI, herramientas y decisiones de arquitectura | `docs/agents/frontend.md`, ADRs, bloque en `CLAUDE.md`/`AGENTS.md` |
 
-### Agentes
+### Las lanza el modelo (o tú)
+
+**Arquitectura**
+
+| Skill | Qué hace | Escribe |
+|---|---|---|
+| `component-library-strategy` | Qué librería de componentes usar y cómo organizarla entre equipos | ADR, sección de librería en la config |
+| `frontend-boundaries` | Convierte la estructura de carpetas y la topología en reglas de lint | config de dependency-cruiser / eslint, ADR |
+| `rendering-strategy` | CSR, SSR, SSG, ISR o islands por grupo de rutas | ADR |
+
+**Diseño**
+
+| Skill | Qué hace | Escribe |
+|---|---|---|
+| `design-context` | Intención de diseño | `DESIGN.md` |
+| `design-tokens` | Audita y define tokens (DTCG) | `design/tokens.json` |
+| `component-spec` | Especifica un componente (librería o app) antes de construirlo | `design/components/<name>.md`, `design/inventory.md` |
+
+**Construcción**
+
+| Skill | Qué hace | Escribe |
+|---|---|---|
+| `ui-feature` | Orquestadora: una funcionalidad de UI de principio a fin | — |
+| `ui-build` | Implementa según la spec, con stories | código + stories |
+
+**Calidad**
+
+| Skill | Qué hace | Escribe |
+|---|---|---|
+| `ui-drift-audit` | Duplicados, valores fuera de tokens y patrones que compiten; línea base para CI | `design/audits/*.md`, `design/audits/baseline.json` |
+| `design-review` | Dos revisores en paralelo (visual y accesibilidad) | `design/reviews/<name>.md` |
+| `visual-baseline` | Capturas de referencia de UI aprobada para detectar regresiones | snapshots |
+| `performance-budget` | Presupuestos de tamaño y Core Web Vitals en CI | config de size-limit / Lighthouse CI |
+
+## Agentes
 
 | Agente | Rol | Herramientas | Modelo |
 |---|---|---|---|
-| `component-scout` | Busca componentes reutilizables y construye el inventario | solo lectura | haiku |
-| `design-reviewer` | Revisión visual, de spec y de tokens con capturas | lectura + Bash | inherit |
+| `component-scout` | Busca componentes reutilizables (primero en la librería) y construye el inventario | solo lectura | haiku |
+| `ui-drift-scanner` | Mide un tipo de deriva de UI (valores, componentes o patrones) | lectura + Bash | inherit |
+| `design-reviewer` | Revisión visual, de spec, tokens, reutilización y límites | lectura + Bash | inherit |
 | `a11y-auditor` | Auditoría de accesibilidad (axe, teclado, semántica) | lectura + Bash | inherit |
 
 En Claude Code se usan como agentes con nombre. En otros agentes, las skills lanzan un
@@ -39,26 +71,31 @@ subagente genérico que sigue el mismo fichero `agents/<nombre>.md`.
 
 | Fichero | Lo escribe | Lo leen |
 |---|---|---|
-| `docs/agents/frontend.md` | `setup-frontend-architect` | todas |
-| `DESIGN.md` | `design-context` | todas |
-| `design/tokens.json` | `design-tokens` | `component-spec`, `ui-build`, revisores |
-| `design/inventory.md` | `component-spec` (vía scout) | `component-spec`, `ui-build`, `ui-feature` |
+| `docs/agents/frontend.md` | `setup-frontend-architect` (y las skills de arquitectura actualizan su sección) | todas |
+| `docs/adr/*.md` | setup, `component-library-strategy`, `frontend-boundaries`, `rendering-strategy` | personas y agentes |
+| `DESIGN.md` | `design-context` | todas las de diseño y calidad |
+| `design/tokens.json` | `design-tokens` | `component-spec`, `ui-build`, revisores, `ui-drift-audit` |
+| `design/inventory.md` | `component-spec`, `ui-drift-audit` | scout, `ui-build`, `ui-feature`, `visual-baseline` |
 | `design/components/<name>.md` | `component-spec` | `ui-build`, revisores |
 | `design/reviews/<name>.md` | `design-review` | `ui-build`, `ui-feature` |
+| `design/audits/*` | `ui-drift-audit` | `component-library-strategy`, CI (ratchet) |
 
 ## Flujo
 
 ```
-/setup-frontend-architect ───► docs/agents/frontend.md   (una vez por repo)
+/setup-frontend-architect          (una vez por repo)
+ ├─ ui-drift-audit quick ────► diagnóstico: duplicados, valores sueltos, patrones
+ ├─ herramientas ────────────► stack, estilos, workbench, comandos, calidad
+ ├─ arquitectura ────────────► topología · carpetas · librería · datos  → ADRs
+ └─ seguimiento (opcional) ──► frontend-boundaries · rendering-strategy
+                               performance-budget · ui-drift-audit (completo)
 
 ui-feature
- ├─ design-context ──────────► DESIGN.md
- ├─ design-tokens ───────────► design/tokens.json
- ├─ component-scout ─────────► reutilizar / extender / nuevo   ◄── confirmación humana
- ├─ component-spec ──────────► design/components/*.md           ◄── aprobación humana
- ├─ ui-build ────────────────► código + stories
- └─ design-review
-      ├─ design-reviewer ┐ en paralelo
-      └─ a11y-auditor   ┘
-           └──────────────► design/reviews/*.md ── CHANGES REQUESTED → ui-build (máx. 3)
+ ├─ design-context / design-tokens (si faltan)
+ ├─ component-scout ─────────► librería → app: reutilizar / extender / nuevo   ◄── confirmación
+ ├─ component-spec ──────────► spec con nivel (librería o app)                  ◄── aprobación
+ ├─ ui-build ────────────────► código + stories, respetando límites
+ └─ design-review (design-reviewer ∥ a11y-auditor)
+      ├─ CHANGES REQUESTED → ui-build (máx. 3)
+      └─ APPROVED → visual-baseline
 ```

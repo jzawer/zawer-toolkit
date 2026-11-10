@@ -10,7 +10,8 @@ reuse check: duplicated components are the most common failure of AI-generated U
 
 ## Before you start
 
-Read `docs/agents/frontend.md` (components path, base library, viewports, quality bar),
+Read `docs/agents/frontend.md` (component library strategy, shared library, app
+components path, contribution rules, viewports, quality bar),
 `DESIGN.md` and `design/tokens.json`. If the config is missing, tell the user to run
 `/setup-frontend-architect`. If DESIGN.md or tokens are missing, say so and offer to
 call the Skill tool with "design-context" or "design-tokens" first; continue with
@@ -24,13 +25,26 @@ it a description of the needed component:
 - Elsewhere, use a general-purpose subagent and tell it to read and follow
   [../../agents/component-scout.md](../../agents/component-scout.md), ignoring its frontmatter.
 
-It returns existing candidates and how well each fits.
+It searches the shared library first, then the app, and returns candidates and how
+well each fits.
 - If a candidate covers ~80% of the need, propose **extending** it instead of
   creating a new one. Let the user decide.
+- If a candidate is marked `deprecated → <canonical>` in the inventory, use the canonical one.
 - If `design/inventory.md` is missing, ask the scout to build it, and write it
-  (one line per component: name, path, purpose, status).
+  (one line per component: name, tier, path, purpose, status).
 
-## 2. Write the spec
+## 2. Decide the tier
+
+When a shared component library exists:
+- **Library**: generic, reusable across features or apps, part of the brand vocabulary.
+  Rule of thumb: promote at the second real consumer, not before.
+- **App**: a feature-specific composition of library components.
+State the tier and why. A library component follows the contribution rules in the
+config (spec, stories for all states, accessibility review, versioning): mark the spec
+as a **library contribution** so reviewers know it needs that bar.
+Without a shared library, everything is an app component; skip this step.
+
+## 3. Write the spec
 
 Write `design/components/<component-name>.md` from [template.md](./template.md).
 
@@ -45,11 +59,11 @@ Rules:
 - Responsive behavior for each configured viewport.
 - Acceptance criteria must be verifiable by looking at a story or running a check.
 
-## 3. Update the inventory
+## 4. Update the inventory
 
-Add or update the component in `design/inventory.md` with status `specified`.
+Add or update the component in `design/inventory.md` with its tier and status `specified`.
 
-## 4. Ask for approval
+## 5. Ask for approval
 
 Show the user a short summary (purpose, variants, API, open questions) and wait
 for approval before anything is built.

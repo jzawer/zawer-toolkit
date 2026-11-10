@@ -5,7 +5,7 @@ orientado a trabajo de arquitectura.
 
 | Plugin | Descripción |
 |---|---|
-| [`frontend-architect`](plugins/frontend-architect/README.md) | Flujo diseño → código: setup, contexto, tokens, specs, build y revisión multi-agente |
+| [`frontend-architect`](plugins/frontend-architect/README.md) | Capa de arquitectura front-end, diseño y calidad visual: setup con diagnóstico, ADRs, librería de componentes, contratos de diseño y revisión multi-agente |
 
 ## 1. Instalar
 

@@ -1,5 +1,18 @@
 # Changelog
 
+## frontend-architect 0.3.0
+
+- Setup wizard: UI health check (quick drift audit), tooling phase and an architecture phase
+  (topology, folder structure, component library, rendering and data, performance) where each
+  decision becomes an ADR.
+- New skills: `ui-drift-audit` (with CI ratchet baseline), `component-library-strategy`,
+  `frontend-boundaries`, `rendering-strategy`, `performance-budget`, `visual-baseline`.
+- New agent: `ui-drift-scanner`.
+- Two-tier components (shared library vs app): scout searches the library first, specs decide
+  the tier and mark library contributions, build follows contribution and boundary rules.
+- Design review flags boundary violations and re-implemented library components, and offers
+  a visual baseline on approval.
+
 ## frontend-architect 0.2.0
 
 - New user-invoked skill `setup-frontend-architect`: wizard that detects or helps choose

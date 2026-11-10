@@ -1,6 +1,8 @@
 # <ComponentName>
 
 Status: specified | built | approved
+Tier: library | app
+Library contribution: yes | no
 
 ## Purpose
 <!-- One sentence. -->

@@ -21,7 +21,12 @@ Read if present:
 ## Rules
 
 - Only semantic tokens. No raw colors, px spacing, font sizes or durations.
-- Reuse components from the inventory and the base library; never re-create one that exists.
+- Reuse components from the shared library, the inventory and the base library, in that
+  order; never re-create one that exists, and never use one marked deprecated.
+- Put files where the configured folder structure says, and respect the boundary rules
+  (no imports across features, layers or packages that the rules forbid).
+- A spec marked **library contribution** goes in the shared library, following its
+  contribution rules (stories for all states, changeset or version note if configured).
 - Implement every state the spec marks as applicable, including loading,
   empty and error.
 - Accessibility is part of the build, not a later pass: semantic elements first,
@@ -37,7 +42,8 @@ records a demo route instead of a workbench, add the states there.
 
 ## Finish
 
-1. Run the configured typecheck, lint and test commands. Fix what fails.
+1. Run the configured typecheck, lint and test commands, plus the boundary check if
+   configured. Fix what fails.
 2. Set the component status to `built` in `design/inventory.md`.
 3. Do not approve your own visual work: tell the user the next step is the
    `design-review` skill (or let `ui-feature` continue the loop).

@@ -59,4 +59,6 @@ Verdict: APPROVED | CHANGES REQUESTED
 ## 4. Report
 
 Give the user the verdict and the Blockers in a few lines. If approved, set
-the component status to `approved` in `design/inventory.md`.
+the component status to `approved` in `design/inventory.md`, and if a visual baseline
+is configured, offer to call the Skill tool with "visual-baseline" to add or update
+its snapshots.

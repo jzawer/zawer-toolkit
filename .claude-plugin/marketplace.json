@@ -11,7 +11,7 @@
     {
       "name": "frontend-architect",
       "source": "./plugins/frontend-architect",
-      "description": "Design-to-code workflow for frontend: setup wizard, design context, tokens, component specs, build and multi-agent design review"
+      "description": "Frontend architecture, design and visual quality layer: setup wizard with UI health check, architecture ADRs, component library strategy, design contracts, build and multi-agent review"
     }
   ]
 }
