@@ -1,0 +1,16 @@
+{
+  "name": "dev-toolkit",
+  "owner": {
+    "name": "dev-toolkit maintainers"
+  },
+  "metadata": {
+    "description": "Personal toolkit of Claude Code plugins for software architecture work"
+  },
+  "plugins": [
+    {
+      "name": "frontend-architect",
+      "source": "./plugins/frontend-architect",
+      "description": "Design-to-code workflow for frontend: design context, tokens, component specs, build and multi-agent design review"
+    }
+  ]
+}

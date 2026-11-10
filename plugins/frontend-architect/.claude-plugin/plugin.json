@@ -1,0 +1,11 @@
+{
+  "name": "frontend-architect",
+  "displayName": "Frontend Architect",
+  "version": "0.1.0",
+  "description": "Design-to-code workflow for frontend: design context, tokens, component specs, build and multi-agent design review",
+  "author": {
+    "name": "dev-toolkit maintainers"
+  },
+  "license": "MIT",
+  "keywords": ["frontend", "design-system", "design-tokens", "accessibility", "architecture"]
+}
