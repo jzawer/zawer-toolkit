@@ -50,6 +50,8 @@ Run the check. If there are existing violations, don't fix them all now:
 - Group them by rule and by feature, with counts.
 - Offer a baseline or allowlist of known violations so CI fails only on **new** ones,
   and list the top groups as refactoring candidates.
+- To plan fixing those groups as tracked work, call the Skill tool with
+  "process-handoff" for situation `boundary-refactor`.
 
 ## 5. Record
 

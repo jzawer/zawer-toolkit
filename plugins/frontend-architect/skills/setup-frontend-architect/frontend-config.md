@@ -29,6 +29,11 @@ Read by the frontend-architect skills. Edit by hand or re-run `/setup-frontend-a
 - Contribution to the library: <!-- who approves, how it is versioned -->
 - Inventory: `design/inventory.md`
 
+## Engineering process
+
+- Process plugin: detect <!-- mattpocock-skills | none | detect -->
+- Handoffs: `design/handoffs/`
+
 ## Styling and tokens
 
 - Styling approach:

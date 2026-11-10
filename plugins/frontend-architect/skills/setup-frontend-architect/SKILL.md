@@ -110,7 +110,13 @@ contributions to the library are approved.
 Skill tool with "rendering-strategy" (step 6). Ask which server-state / data-fetching
 library and API contract are used (OpenAPI types, tRPC, GraphQL, hand-written).
 
-**J. Performance.** Ask whether to set performance budgets now (offer the
+**J. Engineering process.** Detect whether an engineering-process plugin is installed
+(Matt Pocock's skills: `to-spec` / `to-tickets` / `diagnosing-bugs` in your available
+skills, or `docs/agents/issue-tracker.md`). Record it as **Process plugin**. If Matt's
+skills are installed but `docs/agents/issue-tracker.md` is missing, tell the user to run
+`/setup-matt-pocock-skills` too. This plugin never configures that one.
+
+**K. Performance.** Ask whether to set performance budgets now (offer the
 "performance-budget" skill in step 6) or later.
 
 ## 5. Confirm

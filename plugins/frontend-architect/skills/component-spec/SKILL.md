@@ -44,6 +44,11 @@ config (spec, stories for all states, accessibility review, versioning): mark th
 as a **library contribution** so reviewers know it needs that bar.
 Without a shared library, everything is an app component; skip this step.
 
+If the library component should be planned and built as tracked work (another team owns
+the library, or it is bigger than this feature), don't build it here: call the Skill tool
+with "process-handoff" for situation `missing-shared-component`, and use an existing
+component or a temporary app-tier component until it lands.
+
 ## 3. Write the spec
 
 Write `design/components/<component-name>.md` from [template.md](./template.md).

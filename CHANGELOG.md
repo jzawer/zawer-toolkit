@@ -1,5 +1,16 @@
 # Changelog
 
+## frontend-architect 0.4.0
+
+- New skill `process-handoff`: hands off work outside frontend design and quality
+  (missing shared component, library migration, boundary refactor, behavior bug, contested
+  decision, non-UI logic) to the team's engineering process. Writes a brief to
+  `design/handoffs/` and tells the user which command to run, with an adapter for
+  Matt Pocock's skills and a generic one. No dependency on any other plugin.
+- `component-spec`, `ui-drift-audit`, `frontend-boundaries`, `design-review`,
+  `component-library-strategy` and `ui-build` hand off at those points.
+- Setup detects the process plugin and records it in `docs/agents/frontend.md`.
+
 ## frontend-architect 0.3.0
 
 - Setup wizard: UI health check (quick drift audit), tooling phase and an architecture phase

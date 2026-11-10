@@ -5,7 +5,9 @@ La capa de **diseño, calidad visual y arquitectura front-end** para agentes de 
 librería de componentes, contratos de diseño, construcción y verificación de lo que ve el usuario.
 
 Es independiente de plugins de proceso de ingeniería (specs, tickets, TDD, debugging):
-no los necesita ni los sustituye, y puede convivir con ellos.
+no los necesita ni los sustituye. Cuando encuentra trabajo que les corresponde, `process-handoff`
+prepara un brief y te dice qué comando ejecutar (con adaptador para las skills de Matt Pocock,
+o pasos genéricos si no tienes ninguno).
 
 ## Empieza aquí
 
@@ -55,6 +57,12 @@ no los necesita ni los sustituye, y puede convivir con ellos.
 | `visual-baseline` | Capturas de referencia de UI aprobada para detectar regresiones | snapshots |
 | `performance-budget` | Presupuestos de tamaño y Core Web Vitals en CI | config de size-limit / Lighthouse CI |
 
+**Puente con el proceso de ingeniería**
+
+| Skill | Qué hace | Escribe |
+|---|---|---|
+| `process-handoff` | Traspasa lo que no es de este plugin (componente compartido que falta, migración, refactor de límites, bug de comportamiento, decisión disputada, lógica) y dice qué comando ejecutar | `design/handoffs/*.md` |
+
 ## Agentes
 
 | Agente | Rol | Herramientas | Modelo |
@@ -79,6 +87,7 @@ subagente genérico que sigue el mismo fichero `agents/<nombre>.md`.
 | `design/components/<name>.md` | `component-spec` | `ui-build`, revisores |
 | `design/reviews/<name>.md` | `design-review` | `ui-build`, `ui-feature` |
 | `design/audits/*` | `ui-drift-audit` | `component-library-strategy`, CI (ratchet) |
+| `design/handoffs/*` | `process-handoff` | el plugin de proceso (p. ej. `/to-tickets <fichero>`), personas |
 
 ## Flujo
 
@@ -99,3 +108,14 @@ ui-feature
       ├─ CHANGES REQUESTED → ui-build (máx. 3)
       └─ APPROVED → visual-baseline
 ```
+
+### Traspasos al proceso de ingeniería
+
+| Situación | Lo detecta | Con las skills de Matt |
+|---|---|---|
+| Falta un componente común en la librería | `component-spec` | `/to-spec` → `/to-tickets` → `/implement` |
+| Consolidar componentes duplicados | `ui-drift-audit` | `/to-tickets design/handoffs/<fichero>.md` (o `/wayfinder`) |
+| Arreglar violaciones de límites | `frontend-boundaries` | `/to-tickets design/handoffs/<fichero>.md` |
+| Bug de comportamiento | `design-review` | `diagnosing-bugs` |
+| Decisión de arquitectura disputada | `component-library-strategy`, setup | `/grill-with-docs` |
+| Lógica no visual | `ui-build` | `tdd` |

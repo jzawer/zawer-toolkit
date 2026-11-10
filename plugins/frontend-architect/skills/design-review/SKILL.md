@@ -52,6 +52,10 @@ Verdict: APPROVED | CHANGES REQUESTED
 ```
 
 - Deduplicate findings both reviewers reported.
+- Findings about broken behavior rather than design or accessibility (wrong data,
+  crashes, logic errors), or bugs inside the shared library, don't belong in this review:
+  list them under "Out of scope" and call the Skill tool with "process-handoff" for
+  situation `behavior-bug`.
 - Any Blocker, or any unmet acceptance criterion → `CHANGES REQUESTED`.
 - If the file already exists, increment the iteration and keep the previous
   iteration below a `---` separator.

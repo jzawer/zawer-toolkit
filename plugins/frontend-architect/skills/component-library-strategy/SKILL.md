@@ -38,6 +38,8 @@ stories as usage examples, and docs can be consumed by agents (workbench, docs f
 an MCP server or registry when the library offers one).
 
 Recommend **one** option with its main risk, and one alternative with its trade-off.
+If the options are close or the people involved disagree strongly, call the Skill tool
+with "process-handoff" for situation `contested-decision` before recording the ADR.
 Library names are examples: check that a candidate supports the project's framework
 version before recommending it.
 

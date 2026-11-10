@@ -31,6 +31,9 @@ Read if present:
   empty and error.
 - Accessibility is part of the build, not a later pass: semantic elements first,
   ARIA only when needed, visible focus, labels.
+- Keep non-UI logic out of components. When the spec needs real logic (data transforms,
+  validation rules, state machines), call the Skill tool with "process-handoff" for
+  situation `logic-implementation`, then come back to build the UI on top of it.
 - Do not add dependencies without asking.
 
 ## Stories

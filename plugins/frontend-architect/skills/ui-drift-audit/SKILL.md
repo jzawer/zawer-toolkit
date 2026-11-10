@@ -85,3 +85,5 @@ on an explicit yes. Record the baseline path in `docs/agents/frontend.md`.
   the ones to migrate (`status: deprecated → <canonical>`).
 - Suggest next steps: `design-tokens` when hardcoded values dominate,
   `component-library-strategy` when duplicates or competing libraries dominate.
+- To plan the consolidation of duplicate groups as tracked work, call the Skill tool with
+  "process-handoff" for situation `library-migration`.
